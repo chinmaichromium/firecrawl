@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "scripts": {
+    "type": "supabase gen types typescript --project-id pbmelmgxyryzcpuinbnp > database.types.ts"
+  },
+  "dependencies": {
+    "@mendable/firecrawl-js": "^1.8.5",
+    "@supabase/supabase-js": "^2.46.1",
+    "axios": "^1.7.8",
+    "cheerio": "^1.0.0",
+    "json2csv": "^6.0.0-alpha.2"
+  }
+}

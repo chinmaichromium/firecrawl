@@ -1,0 +1,77 @@
+# Pick your baseUrl here:
+@baseUrl = http://localhost:3002
+# @baseUrl = https://api.firecrawl.dev
+
+### Scrape Website
+# @name scrape
+POST {{baseUrl}}/v1/scrape HTTP/1.1
+Authorization: Bearer {{$dotenv TEST_API_KEY}}
+content-type: application/json
+
+{
+    "url":"firecrawl.dev"
+}
+
+### Crawl Website
+# @name crawl
+POST {{baseUrl}}/v1/crawl HTTP/1.1
+Authorization: Bearer {{$dotenv TEST_API_KEY}}
+content-type: application/json
+
+{
+  "url": "firecrawl.dev"
+}
+
+### Check Crawl Status
+@crawlId = {{crawl.response.body.$.id}}
+# @name crawlStatus
+GET {{baseUrl}}/v1/crawl/{{crawlId}} HTTP/1.1
+Authorization: Bearer {{$dotenv TEST_API_KEY}}
+
+
+### Batch Scrape Websites
+# @name batchScrape
+POST {{baseUrl}}/v1/batch/scrape HTTP/1.1
+Authorization: Bearer {{$dotenv TEST_API_KEY}}
+content-type: application/json
+
+{
+  "urls": [
+    "firecrawl.dev",
+    "mendable.ai"
+  ]
+}
+
+### Check Batch Scrape Status
+@batchScrapeId = {{batchScrape.response.body.$.id}}
+# @name batchScrapeStatus
+GET {{baseUrl}}/v1/crawl/{{batchScrapeId}} HTTP/1.1
+Authorization: Bearer {{$dotenv TEST_API_KEY}}
+
+
+### Map Website
+# @name map
+POST {{baseUrl}}/v1/map HTTP/1.1
+Authorization: Bearer {{$dotenv TEST_API_KEY}}
+content-type: application/json
+
+{
+  "url": "firecrawl.dev",
+  "sitemapOnly": true
+}
+
+### Extract
+# @name extract
+POST {{baseUrl}}/v1/extract HTTP/1.1
+Authorization: Bearer {{$dotenv TEST_API_KEY}}
+content-type: application/json
+
+{
+  "urls": ["firecrawl.dev"],
+  "prompt": "What is the title, description and main product of the page?",
+  "schema": {
+    "title": "string",
+    "description": "string",
+    "mainProduct": "string"
+  }
+}
